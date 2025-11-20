@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Prueba CORS</h2>
+    <hr>
+    <div id="datos"></div>
+    <button id="btnDatos">Leer Info</button>
+
+    <script>
+        const divDatos=document.getElementById("datos")
+        const btnDatos=document.getElementById("btnDatos")
+
+        btnDatos.addEventListener("click", async(e)=>{
+            e.preventDefault()
+
+            try {
+                let res=await fetch("http://localhost:3000/datos",{})
+                let datos=await res.json()
+                if(res.status>=400){
+                    divDatos.textContent=res.statusText
+                }else{
+                    divDatos.textContent=datos.payload
+                }                           
+            } catch (error) {
+                divDatos.textContent=`Error ${error.message}`
+            }
+        })
+
+    </script>
+</body>
+</html>
